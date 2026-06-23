@@ -11,15 +11,25 @@
 <h1>Random Skate Trick Generator</h1>
 <p>Flat ground only. Hit the button to get a trick.</p>
 
+<div id="stance-control">
+  <strong>Stances:</strong>
+  <div id="stance-toggles">
+    <label class="stance-label"><input type="checkbox" id="toggle-regular" checked> Regular</label>
+    <label class="stance-label"><input type="checkbox" id="toggle-fakie" checked> Fakie</label>
+    <label class="stance-label"><input type="checkbox" id="toggle-switch" checked> Switch</label>
+    <label class="stance-label"><input type="checkbox" id="toggle-nollie" checked> Nollie</label>
+  </div>
+</div>
+
 <div id="range-control">
-  <strong>Difficulty range:</strong> <span id="range-display">1 – 4</span>
+  <strong>Difficulty range:</strong> <span id="range-display"></span>
   <div id="range-track">
     <div id="range-fill"></div>
-    <input type="range" id="slider-min" min="1" max="4" value="1" step="1">
-    <input type="range" id="slider-max" min="1" max="4" value="4" step="1">
+    <input type="range" id="slider-min" min="1" max="3" value="1" step="1">
+    <input type="range" id="slider-max" min="1" max="3" value="3" step="1">
   </div>
   <div id="range-labels">
-    <span>Easy</span><span>Medium</span><span>Hard</span><span>Very Hard</span>
+    <span>Easy</span><span>Medium</span><span>Hard</span>
   </div>
 </div>
 
