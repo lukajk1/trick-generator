@@ -21,19 +21,43 @@ th { background: #eee; }
 .diff-2 { background: #fff3cd; }
 .diff-3 { background: #fde8c8; }
 .diff-4 { background: #f8d7da; }
+tr.out-of-range td { opacity: 0.35; }
+
+/* Stance toggles */
+#stance-control { margin: 20px 0 16px; }
+#stance-toggles { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+.stance-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1em;
+  padding: 10px 16px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+.stance-label input[type=checkbox] {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Difficulty range slider */
 #range-control { margin: 20px 0 10px; }
 #range-track {
   position: relative;
-  height: 6px;
+  height: 10px;
   background: #ccc;
-  border-radius: 3px;
-  margin: 18px 0 8px;
+  border-radius: 5px;
+  margin: 28px 0 12px;
 }
 #range-fill {
   position: absolute;
   height: 100%;
   background: #333;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 #range-track input[type=range] {
   position: absolute;
@@ -47,14 +71,24 @@ th { background: #eee; }
 }
 #range-track input[type=range]::-webkit-slider-thumb {
   appearance: none;
-  width: 18px; height: 18px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: #333;
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 1px #333;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px #333;
   pointer-events: all;
   cursor: pointer;
 }
-#range-labels { display: flex; justify-content: space-between; font-size: 0.85em; color: #555; }
+#range-track input[type=range]::-moz-range-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #333;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px #333;
+  pointer-events: all;
+  cursor: pointer;
+}
+#range-labels { display: flex; justify-content: space-between; font-size: 0.9em; color: #555; }
 #range-display { font-size: 0.95em; margin-top: 4px; }
-tr.out-of-range td { opacity: 0.35; }

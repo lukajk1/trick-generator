@@ -6,32 +6,58 @@ const sliderMax = document.getElementById("slider-max");
 const rangeDisplay = document.getElementById("range-display");
 const rangeFill = document.getElementById("range-fill");
 
+const stanceToggles = {
+  Regular: document.getElementById("toggle-regular"),
+  Fakie:   document.getElementById("toggle-fakie"),
+  Switch:  document.getElementById("toggle-switch"),
+  Nollie:  document.getElementById("toggle-nollie"),
+};
+
+function getRange() {
+  const lo = Math.min(parseInt(sliderMin.value), parseInt(sliderMax.value));
+  const hi = Math.max(parseInt(sliderMin.value), parseInt(sliderMax.value));
+  return { lo, hi };
+}
+
+function getEnabledStances() {
+  return stances.filter(s => stanceToggles[s].checked);
+}
+
 function updateRange() {
-  let lo = parseInt(sliderMin.value);
-  let hi = parseInt(sliderMax.value);
-  if (lo > hi) { [lo, hi] = [hi, lo]; }
+  const { lo, hi } = getRange();
   rangeDisplay.textContent = `${diffLabel[lo]} – ${diffLabel[hi]}`;
   const pctLo = ((lo - 1) / 3) * 100;
   const pctHi = ((hi - 1) / 3) * 100;
   rangeFill.style.left = pctLo + "%";
   rangeFill.style.width = (pctHi - pctLo) + "%";
+  updateTable();
+}
+
+function updateTable() {
+  const { lo, hi } = getRange();
+  const enabledIdxs = getEnabledStances().map(s => stances.indexOf(s));
   document.querySelectorAll("#diff-table tr").forEach((tr, i) => {
     const t = tricks[i];
-    const inRange = t.diff.some(d => d >= lo && d <= hi);
+    const inRange = enabledIdxs.some(si => t.diff[si] >= lo && t.diff[si] <= hi);
     tr.classList.toggle("out-of-range", !inRange);
   });
 }
 
 sliderMin.addEventListener("input", updateRange);
 sliderMax.addEventListener("input", updateRange);
-updateRange();
+Object.values(stanceToggles).forEach(cb => cb.addEventListener("change", updateTable));
 
 function generate() {
-  const lo = Math.min(parseInt(sliderMin.value), parseInt(sliderMax.value));
-  const hi = Math.max(parseInt(sliderMin.value), parseInt(sliderMax.value));
+  const { lo, hi } = getRange();
+  const enabledStances = getEnabledStances();
+  if (enabledStances.length === 0) {
+    document.getElementById("result").textContent = "No stances selected!";
+    return;
+  }
   const pool = [];
   tricks.forEach(t => {
-    stances.forEach((stance, si) => {
+    enabledStances.forEach(stance => {
+      const si = stances.indexOf(stance);
       const d = t.diff[si];
       if (d >= lo && d <= hi) pool.push({ trick: t, stance, diff: d });
     });
@@ -54,3 +80,5 @@ tricks.forEach(t => {
     t.diff.map(d => `<td class="diff-${d}">${diffLabel[d]}</td>`).join("");
   tbody.appendChild(tr);
 });
+
+updateRange();

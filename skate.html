@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game of SKATE</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="skate.css">
+</head>
+<body>
+
+<h1>Game of SKATE</h1>
+<p><a href="index.html">← back to trick generator</a></p>
+
+<div id="setup">
+  <h2>Bot difficulty</h2>
+  <div id="bot-diff-toggles">
+    <label class="stance-label"><input type="radio" name="bot-diff" value="1"> Easy</label>
+    <label class="stance-label"><input type="radio" name="bot-diff" value="2" checked> Medium</label>
+    <label class="stance-label"><input type="radio" name="bot-diff" value="3"> Hard</label>
+    <label class="stance-label"><input type="radio" name="bot-diff" value="4"> Very Hard</label>
+  </div>
+  <button id="start-btn" class="big-btn" onclick="startGame()">Start Game</button>
+</div>
+
+<div id="game" style="display:none">
+  <div id="scoreboard">
+    <div class="score-card" id="player-card">
+      <div class="score-name">You</div>
+      <div class="score-letters" id="player-letters">_____</div>
+    </div>
+    <div class="score-card" id="bot-card">
+      <div class="score-name">Bot</div>
+      <div class="score-letters" id="bot-letters">_____</div>
+    </div>
+  </div>
+
+  <div id="status"></div>
+  <div id="trick-display"></div>
+
+  <div id="actions">
+    <button class="big-btn" id="land-btn" onclick="playerAction(true)">Land It ✓</button>
+    <button class="big-btn" id="bail-btn" onclick="playerAction(false)">Bail ✗</button>
+  </div>
+
+  <div id="next-area" style="display:none">
+    <button class="big-btn" id="next-btn" onclick="nextTurn()">Next turn →</button>
+  </div>
+</div>
+
+<div id="gameover" style="display:none">
+  <h2 id="gameover-msg"></h2>
+  <button class="big-btn" onclick="resetGame()">Play Again</button>
+</div>
+
+<script src="tricks.js"></script>
+<script src="skate.js"></script>
+</body>
+</html>
