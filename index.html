@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Skate Trick Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Random Skate Trick Generator</h1>
+<p>Flat ground only. Hit the button to get a trick.</p>
+
+<div id="range-control">
+  <strong>Difficulty range:</strong> <span id="range-display">1 – 4</span>
+  <div id="range-track">
+    <div id="range-fill"></div>
+    <input type="range" id="slider-min" min="1" max="4" value="1" step="1">
+    <input type="range" id="slider-max" min="1" max="4" value="4" step="1">
+  </div>
+  <div id="range-labels">
+    <span>Easy</span><span>Medium</span><span>Hard</span><span>Very Hard</span>
+  </div>
+</div>
+
+<div id="result">—</div>
+<button id="generate" onclick="generate()">Generate Random Trick</button>
+
+<h2>Trick Difficulty Map</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Trick</th>
+      <th>Regular</th>
+      <th>Fakie</th>
+      <th>Switch</th>
+      <th>Nollie</th>
+    </tr>
+  </thead>
+  <tbody id="diff-table"></tbody>
+</table>
+
+<script src="tricks.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

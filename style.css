@@ -1,0 +1,60 @@
+body {
+  font-family: serif;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+h1 { border-bottom: 1px solid black; padding-bottom: 8px; }
+#result {
+  font-size: 2em;
+  margin: 30px 0;
+  min-height: 1.5em;
+}
+button#generate {
+  font-size: 1.5em;
+  padding: 12px 32px;
+}
+table { border-collapse: collapse; margin-top: 30px; width: 100%; }
+th, td { border: 1px solid black; padding: 6px 10px; text-align: left; }
+th { background: #eee; }
+.diff-1 { background: #d4edda; }
+.diff-2 { background: #fff3cd; }
+.diff-3 { background: #fde8c8; }
+.diff-4 { background: #f8d7da; }
+#range-control { margin: 20px 0 10px; }
+#range-track {
+  position: relative;
+  height: 6px;
+  background: #ccc;
+  border-radius: 3px;
+  margin: 18px 0 8px;
+}
+#range-fill {
+  position: absolute;
+  height: 100%;
+  background: #333;
+  border-radius: 3px;
+}
+#range-track input[type=range] {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+}
+#range-track input[type=range]::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #333;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #333;
+  pointer-events: all;
+  cursor: pointer;
+}
+#range-labels { display: flex; justify-content: space-between; font-size: 0.85em; color: #555; }
+#range-display { font-size: 0.95em; margin-top: 4px; }
+tr.out-of-range td { opacity: 0.35; }
