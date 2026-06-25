@@ -11,26 +11,18 @@ function pickTrick(maxDiff) {
   const pool = [];
   tricks.forEach(t => {
     stances.forEach((stance, si) => {
-      if (t.diff[si] <= maxDiff) pool.push({ trick: t, stance });
+      if (t.diff[si] <= maxDiff) pool.push({ trick: t, stance, diff: t.diff[si] });
     });
   });
-  const pick = pool[Math.floor(Math.random() * pool.length)];
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function trickLabel(pick) {
   return pick.stance === "Regular" ? pick.trick.name : `${pick.stance} ${pick.trick.name}`;
 }
 
-// Bot land probability: scales with diff relative to bot's max
-function botLandChance(trickName) {
-  // Find the trick's difficulty for a rough stance
-  const maxDiff = state.botDiff;
-  let trickDiff = 1;
-  for (const t of tricks) {
-    for (let si = 0; si < stances.length; si++) {
-      const label = stances[si] === "Regular" ? t.name : `${stances[si]} ${t.name}`;
-      if (label === trickName) { trickDiff = t.diff[si]; break; }
-    }
-  }
-  // Easy trick vs easy bot = high chance; hard trick = lower
-  const ratio = trickDiff / maxDiff;
+function botLandChance(diff) {
+  const ratio = diff / state.botDiff;
   return Math.max(0.25, 1.1 - ratio * 0.7);
 }
 
@@ -75,7 +67,7 @@ function startGame() {
     playerLetters: 0,
     botLetters: 0,
     offense: Math.random() < 0.5 ? "player" : "bot",
-    pendingTrick: null,
+    pendingPick: null,
     phase: "set",  // "set" = offense picks trick, "respond" = defense must match
   };
   document.getElementById("setup").style.display = "none";
@@ -87,12 +79,13 @@ function startGame() {
 
 function beginTurn() {
   state.phase = "set";
-  state.pendingTrick = null;
+  state.pendingPick = null;
   showNextBtn(false);
 
   if (state.offense === "player") {
     setStatus("Your turn — attempt a trick.");
-    setTrick(pickTrick(4));
+    state.pendingPick = pickTrick(4);
+    setTrick(trickLabel(state.pendingPick));
     showActions(true);
   } else {
     showActions(false);
@@ -107,7 +100,6 @@ function playerAction(landed) {
   if (state.phase === "set") {
     // Player is setting
     if (landed) {
-      state.pendingTrick = document.getElementById("trick-display").textContent;
       state.phase = "respond";
       showActions(false);
       botTakeTurn();
@@ -136,24 +128,24 @@ function playerAction(landed) {
 
 function botTakeTurn() {
   if (state.phase === "set") {
-    // Bot sets a trick
-    const trick = pickTrick(state.botDiff);
-    const lands = Math.random() < botLandChance(trick);
-    setTrick(trick);
+    const pick = pickTrick(state.botDiff);
+    const label = trickLabel(pick);
+    const lands = Math.random() < botLandChance(pick.diff);
+    setTrick(label);
 
     if (lands) {
-      state.pendingTrick = trick;
-      setStatus(`Bot landed it! You have to match: ${trick}`);
+      state.pendingPick = pick;
+      setStatus(`Bot landed it! You have to match: ${label}`);
       state.phase = "respond";
       showActions(true);
     } else {
-      setStatus(`Bot bailed on ${trick}. Your turn to set.`);
+      setStatus(`Bot bailed on ${label}. Your turn to set.`);
       state.offense = "player";
       showNextBtn(true);
     }
   } else {
     // Bot responds to player's trick
-    const lands = Math.random() < botLandChance(state.pendingTrick);
+    const lands = Math.random() < botLandChance(state.pendingPick.diff);
     if (lands) {
       setStatus("Bot matched it! Neither gets a letter. Bot sets next.");
       state.offense = "bot";

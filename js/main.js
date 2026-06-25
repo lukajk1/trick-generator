@@ -1,5 +1,5 @@
 const stances = ["Regular", "Fakie", "Switch", "Nollie"];
-const diffLabel = ["", "Easy", "Medium", "Hard", "Very Hard"];
+const diffLabel = ["", "1", "2", "3", "4"];
 
 const sliderMin = document.getElementById("slider-min");
 const sliderMax = document.getElementById("slider-max");
