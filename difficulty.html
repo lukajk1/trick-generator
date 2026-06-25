@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trick Difficulty Map</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Trick Difficulty Map</h1>
+<p><a href="index.html">← back to trick generator</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Trick</th>
+      <th>Regular</th>
+      <th>Fakie</th>
+      <th>Switch</th>
+      <th>Nollie</th>
+    </tr>
+  </thead>
+  <tbody id="diff-table"></tbody>
+</table>
+
+<script src="tricks.js"></script>
+<script>
+  const diffLabel = ["", "Easy", "Medium", "Hard", "Very Hard"];
+  const tbody = document.getElementById("diff-table");
+  tricks.forEach(t => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${t.name}</td>` +
+      t.diff.map(d => `<td class="diff-${d}">${diffLabel[d]}</td>`).join("");
+    tbody.appendChild(tr);
+  });
+</script>
+
+</body>
+</html>

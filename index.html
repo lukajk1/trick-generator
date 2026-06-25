@@ -9,7 +9,7 @@
 <body>
 
 <h1>Random Skate Trick Generator</h1>
-<p>Flat ground only. Hit the button to get a trick. | <a href="skate.html">Play Game of SKATE →</a></p>
+<p>Flat ground only. Hit the button to get a trick. | <a href="skate.html">Play Game of SKATE →</a> | <a href="difficulty.html">Difficulty map →</a></p>
 
 <div id="stance-control">
   <strong>Stances:</strong>
@@ -26,7 +26,7 @@
   <div id="range-track">
     <div id="range-fill"></div>
     <input type="range" id="slider-min" min="1" max="4" value="1" step="1">
-    <input type="range" id="slider-max" min="1" max="4" value="4" step="1">
+    <input type="range" id="slider-max" min="1" max="4" value="2" step="1">
   </div>
   <div id="range-labels">
     <span>Easy</span><span>Medium</span><span>Hard</span><span>Very Hard</span>
@@ -36,21 +36,8 @@
 <div id="result">—</div>
 <button id="generate" onclick="generate()">Generate Random Trick</button>
 
-<h2>Trick Difficulty Map</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Trick</th>
-      <th>Regular</th>
-      <th>Fakie</th>
-      <th>Switch</th>
-      <th>Nollie</th>
-    </tr>
-  </thead>
-  <tbody id="diff-table"></tbody>
-</table>
-
 <script src="tricks.js"></script>
 <script src="main.js"></script>
+<p><a href="https://github.com/lukajk1/trick-generator">GitHub</a></p>
 </body>
 </html>
